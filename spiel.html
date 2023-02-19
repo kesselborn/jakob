@@ -4,88 +4,148 @@
     <title>Ping Pong Spiel</title>
     <style>
       #spielfeld {
-        width: 600px;
-        height: 400px;
+        width: 500px;
+        height: 300px;
         margin: 0 auto;
-        border: 2px solid #000;
+        background-color: black;
         position: relative;
       }
-      #schlaeger {
+      #schlaeger-links {
         width: 10px;
-        height: 80px;
+        height: 60px;
         position: absolute;
-        top: 160px;
+        top: 120px;
         left: 20px;
-        background-color: #000;
+        background-color: white;
+      }
+      #schlaeger-rechts {
+        width: 10px;
+        height: 60px;
+        position: absolute;
+        top: 120px;
+        right: 20px;
+        background-color: white;
       }
       #ball {
-        width: 20px;
-        height: 20px;
+        width: 10px;
+        height: 10px;
         position: absolute;
-        top: 190px;
-        left: 290px;
-        background-color: #000;
+        top: 145px;
+        left: 245px;
+        background-color: white;
         border-radius: 50%;
       }
     </style>
   </head>
   <body>
     <div id="spielfeld">
-      <div id="schlaeger"></div>
+      <div id="schlaeger-links"></div>
+      <div id="schlaeger-rechts"></div>
       <div id="ball"></div>
     </div>
     <script>
       var ball = document.getElementById("ball");
-      var schlaeger = document.getElementById("schlaeger");
       var spielfeld = document.getElementById("spielfeld");
-
-      // Setzt die Startposition des Balls
-      var ballX = 290;
-      var ballY = 190;
       var ballSpeedX = 5;
       var ballSpeedY = 5;
-
-      // Setzt die Startposition des Schlägers
-      var schlaegerY = 160;
-
-      // Bewegt den Schläger auf und ab
-      document.addEventListener("keydown", function(event) {
-        if (event.code === "ArrowUp") {
-          schlaegerY -= 20;
-          schlaeger.style.top = schlaegerY + "px";
-        } else if (event.code === "ArrowDown") {
-          schlaegerY += 20;
-          schlaeger.style.top = schlaegerY + "px";
-        }
-      });
+      var punkteLinks = 0;
+      var punkteRechts = 0;
 
       // Bewegt den Ball und überprüft auf Kollisionen
       function update() {
         // Bewegt den Ball
-        ballX += ballSpeedX;
-        ballY += ballSpeedY;
+        var ballX = ball.offsetLeft + ballSpeedX;
+        var ballY = ball.offsetTop + ballSpeedY;
         ball.style.left = ballX + "px";
         ball.style.top = ballY + "px";
 
-        // Überprüft auf Kollision mit dem Spielfeldrand
-        if (ballX < 0 || ballX + ball.offsetWidth > spielfeld.offsetWidth) {
-          ballSpeedX = -ballSpeedX;
-        }
+        // Überprüft auf Kollision mit dem Spielfeldrand oben und unten
         if (ballY < 0 || ballY + ball.offsetHeight > spielfeld.offsetHeight) {
           ballSpeedY = -ballSpeedY;
         }
 
-        // Überprüft auf Kollision mit dem Schläger
-        if (ballX <= schlaeger.offsetWidth && ballY >= schlaegerY && ballY <= schlaegerY + schlaeger.offsetHeight) {
+        // Überprüft auf Kollision mit dem linken oder rechten Schläger
+        if (ballX <= 30 && ballY >= document.getElementById("schlaeger-links").offsetTop && ballY <= document.getElementById("schlaeger-links").offsetTop + document.getElementById("schlaeger-links").offsetHeight) {
           ballSpeedX = -ballSpeedX;
+          ball.style.left = 40 + "px";
+        } else if (ballX + ball.offsetWidth >= spielfeld.offsetWidth - 30 && ballY >= document.getElementById("schlaeger-rechts").offsetTop && ballY <= document.getElementById("schlaeger-rechts").offsetTop + document.getElementById("schlaeger-rechts").offsetHeight) {
+          ballSpeedX = -ballSpeedX;
+          ball.style.left = spielfeld.offsetWidth - 50 + "px";
         }
 
-        // Wiederholt die Funktion
-        window.requestAnimationFrame(update);
-      }
+        // Überprüft, ob der Ball das Spielfeld links oder rechts verlassen hat
+        if (ballX < 0) {
+          punkteRechts++;
+          document.getElementById("punkte-rechts").innerHTML = punkteRechts;
+          ball.style.left = 245 + "px";
+          ball.style.top = 145 + "px";
+          ballSpeedX = -ball
+        } else if (ballX + ball.offsetWidth > spielfeld.offsetWidth) {
+      punkteLinks++;
+      document.getElementById("punkte-links").innerHTML = punkteLinks;
+      ball.style.left = 245 + "px";
+      ball.style.top = 145 + "px";
+      ballSpeedX = -ballSpeedX;
+    }
+  }
 
-      // Startet das Spiel
-      update();
-    </script>
-  </body>
+  // Bewegt den linken Schläger
+  function moveSchlaegerLinks(offset) {
+    var schlaeger = document.getElementById("schlaeger-links");
+    var y = schlaeger.offsetTop + offset;
+    if (y < 0 || y + schlaeger.offsetHeight > spielfeld.offsetHeight) {
+      return;
+    }
+    schlaeger.style.top = y + "px";
+  }
+
+  // Bewegt den rechten Schläger
+  function moveSchlaegerRechts(offset) {
+    var schlaeger = document.getElementById("schlaeger-rechts");
+    var y = schlaeger.offsetTop + offset;
+    if (y < 0 || y + schlaeger.offsetHeight > spielfeld.offsetHeight) {
+      return;
+    }
+    schlaeger.style.top = y + "px";
+  }
+
+  // Bewegt den linken Schläger, wenn die Pfeiltaste nach oben gedrückt wird
+  document.onkeydown = function(event) {
+    if (event.keyCode === 38) {
+      moveSchlaegerLinks(-10);
+    }
+  }
+
+  // Bewegt den linken Schläger, wenn die Pfeiltaste nach unten gedrückt wird
+  document.onkeydown = function(event) {
+    if (event.keyCode === 40) {
+      moveSchlaegerLinks(10);
+    }
+  }
+
+  // Bewegt den rechten Schläger, wenn die Taste "W" gedrückt wird
+  document.onkeydown = function(event) {
+    if (event.keyCode === 87) {
+      moveSchlaegerRechts(-10);
+    }
+  }
+
+  // Bewegt den rechten Schläger, wenn die Taste "S" gedrückt wird
+  document.onkeydown = function(event) {
+    if (event.keyCode === 83) {
+      moveSchlaegerRechts(10);
+    }
+  }
+
+  // Aktualisiert das Spiel in regelmäßigen Abständen
+  setInterval(update, 30);
+</script>
+<div style="text-align: center;">
+  <h2>Punkte</h2>
+  <div style="display: inline-block; text-align: left;">
+    Links: <span id="punkte-links">0</span><br>
+    Rechts: <span id="punkte-rechts">0</span>
+  </div>
+</div>
+</body>
 </html>
