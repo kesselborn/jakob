@@ -2,6 +2,53 @@
 <html>
 <head>
 	<title>Timer einstellen</title>
+	<style>
+		body {
+			background-color: #f2f2f2;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+		}
+		h1 {
+			text-align: center;
+			margin-top: 50px;
+			margin-bottom: 20px;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+		form label {
+			margin-bottom: 10px;
+		}
+		form input {
+			margin-bottom: 10px;
+			padding: 10px;
+			width: 80px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+		form button {
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			background-color: #4CAF50;
+			color: #fff;
+			font-size: 16px;
+			cursor: pointer;
+			margin-bottom: 20px;
+		}
+		form button:hover {
+			background-color: #3e8e41;
+		}
+		#timer {
+			text-align: center;
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+	</style>
 	<script>
 		var timer; // Variable, um den Timer zu speichern
 		function startTimer() {
@@ -16,10 +63,12 @@
 				var minutesLeft = Math.floor((totalTime % 3600) / 60); // Verbleibende Minuten berechnen
 				var secondsLeft = totalTime % 60; // Verbleibende Sekunden berechnen
 
-				document.getElementById("timer").innerHTML = hoursLeft + " Stunden " + minutesLeft + " Minuten " + secondsLeft + " Sekunden"; // Verbleibende Zeit ausgeben
+				document.getElementById("timer").innerHTML = hoursLeft + ":" + padZero(minutesLeft) + ":" + padZero(secondsLeft); // Verbleibende Zeit ausgeben
 
 				if (totalTime <= 0) { // Timer stoppen, wenn Zeit abgelaufen ist
 					clearInterval(timer);
+					var audio = new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3");
+					audio.play();
 					alert("Zeit ist abgelaufen!");
 				}
 
@@ -31,23 +80,31 @@
 			clearInterval(timer); // Timer stoppen
 			document.getElementById("timer").innerHTML = "Timer angehalten"; // Anzeige aktualisieren
 		}
-	</script>
+
+		function padZero(num) {
+			if (num < 10) {
+				return "0" + num;
+			} else {
+			return num;
+		}
+	}
+</script>
 </head>
 <body>
 	<h1>Timer einstellen</h1>
 	<form>
 		<label for="hours">Stunden:</label>
-		<input type="number" id="hours" name="hours" min="0" max="99" value="0">
-		<br>
+		<input type="number" id="hours" min="0" max="24" value="0">
 		<label for="minutes">Minuten:</label>
-		<input type="number" id="minutes" name="minutes" min="0" max="59" value="0">
-		<br>
-		<label for="seconds">Sekunden:</label>
-		<input type="number" id="seconds" name="seconds" min="0" max="59" value="0">
-		<br>
-		<button type="button" onclick="startTimer()">Starten</button>
-		<button type="button" onclick="stopTimer()">Anhalten</button>
-	</form>
-	<div id="timer">Timer wird gestartet, wenn die Zeit eingestellt und gestartet wird.</div>
+	<input type="number" id="minutes" min="0" max="59" value="0">
+
+	<label for="seconds">Sekunden:</label>
+	<input type="number" id="seconds" min="0" max="59" value="0">
+
+	<button type="button" onclick="startTimer()">Start</button>
+	<button type="button" onclick="stopTimer()">Stop</button>
+</form>
+
+<div id="timer">00:00:00</div>
 </body>
 </html>
