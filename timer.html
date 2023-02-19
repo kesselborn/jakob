@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Timer einstellen</title>
+	<script>
+		var timer; // Variable, um den Timer zu speichern
+		function startTimer() {
+			var hours = document.getElementById("hours").value; // Stunden aus dem Formular holen
+			var minutes = document.getElementById("minutes").value; // Minuten aus dem Formular holen
+			var seconds = document.getElementById("seconds").value; // Sekunden aus dem Formular holen
+
+			var totalTime = (hours * 3600) + (minutes * 60) + (seconds * 1); // Gesamtzeit in Sekunden berechnen
+
+			timer = setInterval(function() { // Timer starten
+				var hoursLeft = Math.floor(totalTime / 3600); // Verbleibende Stunden berechnen
+				var minutesLeft = Math.floor((totalTime % 3600) / 60); // Verbleibende Minuten berechnen
+				var secondsLeft = totalTime % 60; // Verbleibende Sekunden berechnen
+
+				document.getElementById("timer").innerHTML = hoursLeft + " Stunden " + minutesLeft + " Minuten " + secondsLeft + " Sekunden"; // Verbleibende Zeit ausgeben
+
+				if (totalTime <= 0) { // Timer stoppen, wenn Zeit abgelaufen ist
+					clearInterval(timer);
+					alert("Zeit ist abgelaufen!");
+				}
+
+				totalTime--; // Gesamtzeit um eine Sekunde verringern
+			}, 1000); // Timer soll alle 1000 Millisekunden aktualisiert werden (entspricht einer Sekunde)
+		}
+
+		function stopTimer() {
+			clearInterval(timer); // Timer stoppen
+			document.getElementById("timer").innerHTML = "Timer angehalten"; // Anzeige aktualisieren
+		}
+	</script>
+</head>
+<body>
+	<h1>Timer einstellen</h1>
+	<form>
+		<label for="hours">Stunden:</label>
+		<input type="number" id="hours" name="hours" min="0" max="99" value="0">
+		<br>
+		<label for="minutes">Minuten:</label>
+		<input type="number" id="minutes" name="minutes" min="0" max="59" value="0">
+		<br>
+		<label for="seconds">Sekunden:</label>
+		<input type="number" id="seconds" name="seconds" min="0" max="59" value="0">
+		<br>
+		<button type="button" onclick="startTimer()">Starten</button>
+		<button type="button" onclick="stopTimer()">Anhalten</button>
+	</form>
+	<div id="timer">Timer wird gestartet, wenn die Zeit eingestellt und gestartet wird.</div>
+</body>
+</html>
