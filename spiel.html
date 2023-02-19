@@ -1,22 +1,91 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mein Videospiel</title>
+    <title>Ping Pong Spiel</title>
+    <style>
+      #spielfeld {
+        width: 600px;
+        height: 400px;
+        margin: 0 auto;
+        border: 2px solid #000;
+        position: relative;
+      }
+      #schlaeger {
+        width: 10px;
+        height: 80px;
+        position: absolute;
+        top: 160px;
+        left: 20px;
+        background-color: #000;
+      }
+      #ball {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 190px;
+        left: 290px;
+        background-color: #000;
+        border-radius: 50%;
+      }
+    </style>
   </head>
   <body>
-    <canvas id="mein-spiel" width="500" height="500"></canvas>
+    <div id="spielfeld">
+      <div id="schlaeger"></div>
+      <div id="ball"></div>
+    </div>
     <script>
-      // Hier kommt der JavaScript-Code für das Spiel
-      var canvas = document.getElementById("mein-spiel");
-      var ctx = canvas.getContext("2d");
+      var ball = document.getElementById("ball");
+      var schlaeger = document.getElementById("schlaeger");
+      var spielfeld = document.getElementById("spielfeld");
 
-      // Hintergrund zeichnen
-      ctx.fillStyle = "#000000";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Setzt die Startposition des Balls
+      var ballX = 290;
+      var ballY = 190;
+      var ballSpeedX = 5;
+      var ballSpeedY = 5;
 
-      // Spieler zeichnen
-      ctx.fillStyle = "#FFFFFF";
-      ctx.fillRect(225, 225, 50, 50);
+      // Setzt die Startposition des Schlägers
+      var schlaegerY = 160;
+
+      // Bewegt den Schläger auf und ab
+      document.addEventListener("keydown", function(event) {
+        if (event.code === "ArrowUp") {
+          schlaegerY -= 20;
+          schlaeger.style.top = schlaegerY + "px";
+        } else if (event.code === "ArrowDown") {
+          schlaegerY += 20;
+          schlaeger.style.top = schlaegerY + "px";
+        }
+      });
+
+      // Bewegt den Ball und überprüft auf Kollisionen
+      function update() {
+        // Bewegt den Ball
+        ballX += ballSpeedX;
+        ballY += ballSpeedY;
+        ball.style.left = ballX + "px";
+        ball.style.top = ballY + "px";
+
+        // Überprüft auf Kollision mit dem Spielfeldrand
+        if (ballX < 0 || ballX + ball.offsetWidth > spielfeld.offsetWidth) {
+          ballSpeedX = -ballSpeedX;
+        }
+        if (ballY < 0 || ballY + ball.offsetHeight > spielfeld.offsetHeight) {
+          ballSpeedY = -ballSpeedY;
+        }
+
+        // Überprüft auf Kollision mit dem Schläger
+        if (ballX <= schlaeger.offsetWidth && ballY >= schlaegerY && ballY <= schlaegerY + schlaeger.offsetHeight) {
+          ballSpeedX = -ballSpeedX;
+        }
+
+        // Wiederholt die Funktion
+        window.requestAnimationFrame(update);
+      }
+
+      // Startet das Spiel
+      update();
     </script>
   </body>
 </html>
