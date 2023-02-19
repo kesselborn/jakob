@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mein Videospiel</title>
+  </head>
+  <body>
+    <canvas id="mein-spiel" width="500" height="500"></canvas>
+    <script>
+      // Hier kommt der JavaScript-Code für das Spiel
+      var canvas = document.getElementById("mein-spiel");
+      var ctx = canvas.getContext("2d");
+
+      // Hintergrund zeichnen
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Spieler zeichnen
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(225, 225, 50, 50);
+    </script>
+  </body>
+</html>
