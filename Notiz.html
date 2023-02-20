@@ -3,6 +3,85 @@
   <head>
     <meta charset="UTF-8">
     <title>Notizen</title>
+    <style>
+      body {
+        font-family: 'Helvetica Neue', sans-serif;
+        color: #333;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+      
+      h1 {
+        font-weight: normal;
+        text-align: center;
+        margin-top: 0;
+      }
+      
+      form {
+        display: flex;
+        margin-bottom: 20px;
+      }
+      
+      label {
+        flex: 1;
+        font-size: 18px;
+        font-weight: bold;
+        margin-right: 10px;
+        text-align: right;
+      }
+      
+      input[type=text] {
+        flex: 2;
+        font-size: 18px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      
+      button {
+        font-size: 18px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+      }
+      
+      button:hover {
+        background-color: #0069d9;
+      }
+      
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      li {
+        font-size: 18px;
+        padding: 8px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      
+      button:last-of-type {
+        margin-left: 10px;
+      }
+      
+      button:disabled {
+        background-color: #ccc;
+        color: #999;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+      
+    </style>
   </head>
   <body>
     <h1>Notizen</h1>
@@ -10,7 +89,7 @@
     <form>
       <label for="note">Notiz:</label>
       <input type="text" id="note">
-      <button type="button" onclick="addNote()">Hinzufügen</button>
+      <button type="button" onclick="addNote()" id="addBtn" disabled>Hinzufügen</button>
     </form>
     
     <ul id="noteList">
@@ -22,39 +101,64 @@
       // initialisiere leeres Array für Notizen
       let notes = [];
       
+      // hole DOM-Elemente
+      let noteInput = document.getElementById("note");
+      let addBtn = document.getElementById("addBtn");
+      let noteList = document.getElementById("noteList");
+      
+      // füge Event-Listener hinzu
+      noteInput.addEventListener("input", checkInput);
+      
       // funktion, um Notiz hinzuzufügen
       function addNote() {
         // hole Wert aus Eingabefeld
-        let note = document.getElementById("note").value;
-        // füge Notiz zum Array hinzu
-        notes.push(note);
-        // leere Eingabefeld
-        document.getElementById("note").value = "";
-        // aktualisiere Notizliste
-        updateNoteList();
-      }
-      
-      // funktion, um Notizliste zu aktualisieren
-      function updateNoteList() {
-        // hole Notizliste
-        let noteList = document.getElementById("noteList");
-        // lösche alle Einträge
-        noteList.innerHTML = "";
-        // füge Notizen als Listeneinträge hinzu
-        for (let i = 0; i < notes.length; i++) {
-          let noteItem = document.createElement("li");
-          noteItem.textContent = notes[i];
-          noteList.appendChild(noteItem);
-        }
-      }
-      
-      // funktion, um alle Notizen zu löschen
-      function clearNotes() {
-        // setze Array auf leeres Array zurück
-        notes = [];
-        // aktualisiere Notizliste
-        updateNoteList();
-      }
-    </script>
-  </body>
+        let note = noteInput.value;
+        // füge Notiz zu Array hinzu
+notes.push(note);
+// erzeuge neues li-Element mit Notiz und löschen-Button
+let li = document.createElement("li");
+li.textContent = note;
+let deleteBtn = document.createElement("button");
+deleteBtn.textContent = "Löschen";
+deleteBtn.addEventListener("click", function() {
+deleteNote(li);
+});
+li.appendChild(deleteBtn);
+// füge li-Element zur Liste hinzu
+noteList.appendChild(li);
+// setze Eingabefeld zurück und deaktiviere Hinzufügen-Button
+noteInput.value = "";
+addBtn.disabled = true;
+}
+  // funktion, um Notiz zu löschen
+  function deleteNote(li) {
+    // entferne Notiz aus Array
+    let note = li.textContent.slice(0, -8);
+    let index = notes.indexOf(note);
+    notes.splice(index, 1);
+    // entferne li-Element aus Liste
+    li.remove();
+  }
+  
+  // funktion, um alle Notizen zu löschen
+  function clearNotes() {
+    // setze Array zurück
+    notes = [];
+    // entferne alle li-Elemente aus Liste
+    while (noteList.firstChild) {
+      noteList.removeChild(noteList.firstChild);
+    }
+  }
+  
+  // funktion, um zu überprüfen, ob Eingabefeld ausgefüllt ist
+  function checkInput() {
+    if (noteInput.value.length > 0) {
+      addBtn.disabled = false;
+    } else {
+      addBtn.disabled = true;
+    }
+  }
+</script>
+</body>
 </html>
+```
