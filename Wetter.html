@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Aktuelles Wetter</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		.weather-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			font-family: Arial, sans-serif;
+		}
+
+		h1 {
+			margin-top: 0;
+		}
+
+		.weather-icon {
+			width: 100px;
+			height: 100px;
+			margin-bottom: 10px;
+		}
+
+		.weather-description {
+			font-size: 24px;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+
+		.weather-temperature {
+			font-size: 36px;
+			margin-bottom: 10px;
+		}
+
+		.weather-details {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			margin-bottom: 10px;
+		}
+
+		.weather-details span {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="weather-container">
+		<h1>Aktuelles Wetter</h1>
+		<img class="weather-icon" src="" alt="Wetter-Icon">
+		<div class="weather-description"></div>
+		<div class="weather-temperature"></div>
+		<div class="weather-details">
+			<span>Luftfeuchtigkeit: <span class="humidity"></span></span>
+			<span>Windgeschwindigkeit: <span class="wind-speed"></span></span>
+		</div>
+	</div>
+
+	<script>
+		// Funktion zum Abrufen der Wetterdaten von OpenWeatherMap-API
+		function getWeatherData() {
+			const API_KEY = "Ihr_API_Schlüssel";
+			const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=${API_KEY}&units=metric`;
+
+			fetch(API_URL)
+				.then(response => response.json())
+				.then(data => {
+					// Aktualisieren Sie die Wetterdaten auf der Seite
+					const weatherIcon = document.querySelector(".weather-icon");
+					const weatherDescription = document.querySelector(".weather-description");
+					const weatherTemperature = document.querySelector(".weather-temperature");
+					const humidity = document.querySelector(".humidity");
+					const windSpeed = document.querySelector(".wind-speed");
+
+					weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+					weatherDescription.textContent = data.weather[0].description;
+					weatherTemperature.textContent = `${Math.round(data.main.temp)} °C`;
+					humidity.textContent = `${data.main.humidity}%`;
+					windSpeed.textContent = `${Math.round(data.wind.speed)} km/h`;
+				})
+				.catch(error => console.error(error));
+		}
+
+		// Rufen Sie die Wetterdaten alle 10 Sekunden ab
+		setInterval(getWeatherData, 10000);
+	</script>
+</body>
+</html>
