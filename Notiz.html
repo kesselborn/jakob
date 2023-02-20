@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Notizen</title>
+  </head>
+  <body>
+    <h1>Notizen</h1>
+    
+    <form>
+      <label for="note">Notiz:</label>
+      <input type="text" id="note">
+      <button type="button" onclick="addNote()">Hinzufügen</button>
+    </form>
+    
+    <ul id="noteList">
+    </ul>
+    
+    <button type="button" onclick="clearNotes()">Alle löschen</button>
+    
+    <script>
+      // initialisiere leeres Array für Notizen
+      let notes = [];
+      
+      // funktion, um Notiz hinzuzufügen
+      function addNote() {
+        // hole Wert aus Eingabefeld
+        let note = document.getElementById("note").value;
+        // füge Notiz zum Array hinzu
+        notes.push(note);
+        // leere Eingabefeld
+        document.getElementById("note").value = "";
+        // aktualisiere Notizliste
+        updateNoteList();
+      }
+      
+      // funktion, um Notizliste zu aktualisieren
+      function updateNoteList() {
+        // hole Notizliste
+        let noteList = document.getElementById("noteList");
+        // lösche alle Einträge
+        noteList.innerHTML = "";
+        // füge Notizen als Listeneinträge hinzu
+        for (let i = 0; i < notes.length; i++) {
+          let noteItem = document.createElement("li");
+          noteItem.textContent = notes[i];
+          noteList.appendChild(noteItem);
+        }
+      }
+      
+      // funktion, um alle Notizen zu löschen
+      function clearNotes() {
+        // setze Array auf leeres Array zurück
+        notes = [];
+        // aktualisiere Notizliste
+        updateNoteList();
+      }
+    </script>
+  </body>
+</html>
