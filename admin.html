@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #f28c00, #ff5f6d);
+      font-family: 'Montserrat', sans-serif;
+    }
+    h1 {
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-top: 50px;
+      margin-bottom: 30px;
+      font-size: 36px;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    }
+    form {
+      background: linear-gradient(to bottom right, #fff, #f9f9f9);
+      border-radius: 10px;
+      padding: 40px;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #333;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+    }
+    input[type="password"] {
+      padding: 20px;
+      border-radius: 5px;
+      border: none;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      margin-bottom: 30px;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: #555;
+      background: linear-gradient(to bottom, #f9f9f9, #fff);
+    }
+    input[type="submit"] {
+      background: linear-gradient(to bottom right, #ff5f6d, #f28c00);
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+      transition: all 0.3s ease-in-out;
+    }
+    input[type="submit"]:hover {
+      background: linear-gradient(to bottom right, #f28c00, #ff5f6d);
+    }
+    input[type="submit"]:active {
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Admin Login</h1>
+  <form onsubmit="javascript:document.location.href='https://spiegel.de';return false;">
+    <label for="password">Passwort:</label>
+    <input type="password" id="password" name="password" pattern="Admin" required>
+    <input type="submit" value="Login">
+  </form>
+</body>
+</html>
