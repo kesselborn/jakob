@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @keyframes backgroundChange {
+            0% {
+                background-color: white;
+                color: black;
+            }
+
+            100% {
+                background-color: rgb(29, 99, 145);
+                color: white;
+            }
+        }
+
+        a {
+            padding: 13px;
+            text-decoration: none;
+            font-family: sans-serif;
+            color: black;
+            display: inline-block;
+            animation: backgroundChange 1s ease;
+            /* Hier wird die CSS-Animation angewendet */
+        }
+
+        button {
+            border: 1px black solid;
+            padding: 10px 20px;
+            font-family: sans-serif;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            transition: background-color 1s ease;
+            /* Übergang für sofortigen Hover-Effekt */
+        }
+
+        button:hover {
+            background-color: rgb(29, 99, 145);
+            color: white;
+        }
+    </style>
+    <script>
+        let produkte = [];
+    </script>
+</head>
+
+<body>
+    <button onclick="javascript:produkte.push('Schuhe')"> Zum Einkaufswagen hinzufügen </button>
+    <script>        // Ein neues Bild-Element erstellen
+        var img = document.createElement('img');
+
+        // Die URL des Bildes festlegen
+        img.src = 'https://tse4.mm.bing.net/th?id=OIP.677i4VVWo7yFISLi-yWDiQHaHa&pid=Api';
+
+        // Das Bild-Element zum DOM hinzufügen (zum Beispiel zum <body>)
+        document.body.appendChild(img);</script>
+
+
+
+    <button onclick="javascript:produkte.push('Jacke')"> Zum Einkaufswagen hinzufügen </button>
+    <script>        // Ein neues Bild-Element erstellen
+        var img = document.createElement('img');
+
+        // Die URL des Bildes festlegen
+        img.src = 'https://tse1.mm.bing.net/th?id=OIP.WjAYDqQSoPBug91KhQ1t3AHaJW&pid=Api';
+
+        // Das Bild-Element zum DOM hinzufügen (zum Beispiel zum <body>)
+        document.body.appendChild(img);</script>
+
+    <button onclick="javascript:document.location.href=`Einkaufswagen.html?produkte=${produkte}`"> Zum Einkaufswagen
+        gehen </button>
+
+</body>
+
+</html>
