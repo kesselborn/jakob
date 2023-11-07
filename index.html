@@ -65,6 +65,26 @@
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen></iframe>
+
+    <button style="display:none;">debug</button>
+    <p id="debug-links-text" style="display: none;"></p>
+    <script>
+        let areLinksHere = document.querySelectorAll('a').length>0;
+        let rechtsclickZaehler = 0;
+        document.body.addEventListener('contextmenu', () => {
+            rechtsclickZaehler = rechtsclickZaehler + 1;
+            if(rechtsclickZaehler > 4) {
+              document.querySelector("button").style.display="block"
+            }
+        } )
+
+        document.querySelector("button").addEventListener("click",() => {
+          document.querySelector("#debug-links-text").innerHTML=`are links on the page: ${areLinksHere}`
+          document.querySelector("#debug-links-text").style.display="block"
+
+        })
+
+    </script>
 </body>
 
 </html>
