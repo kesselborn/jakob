@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mein 3D-Spiel</title>
+  <title>Mein 3D-Würfel</title>
   <style>
     body { margin: 0; }
     canvas { display: block; }
@@ -34,24 +34,9 @@
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
-    // Funktion für den Klick auf den Würfel
-    function onDocumentClick(event) {
-      event.preventDefault();
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
       raycaster.setFromCamera(mouse, camera);
 
       const intersects = raycaster.intersectObjects(scene.children);
-
-      if (intersects.length > 0 && intersects[0].object === cube) {
-        // Umleitung zur Login-Seite
-        window.location.href = "hacker.html";
-      }
-    }
-
-    // Füge einen Eventlistener hinzu, um auf Klicks auf den Würfel zu reagieren
-    document.addEventListener('click', onDocumentClick, false);
 
     // Animationsfunktion
     function animate() {
