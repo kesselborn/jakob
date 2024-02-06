@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Form</title>
+    <!-- Linking the JavaScript file -->
+    <script src="flashcards.js" defer></script>
+</head>
+
+<body>
+    <h1>Flashcard Form</h1>
+
+    <!-- Form for user input -->
+    <form id="flashcardForm">
+        <label for="frontInput">Front:</label>
+        <input type="text" id="frontInput" required>
+
+        <label for="backInput">Back:</label>
+        <input type="text" id="backInput" required>
+
+        <button type="submit">Create Flashcard</button>
+    </form>
+
+    <button id="abfragen"><strong>Abfragen</strong></button>
+
+    <!-- Container for displaying flashcards -->
+    <div id="flashcardContainer"></div>
+
+    <div id="abfrageContainer"></div>
+
+</body>
+
+</html>
