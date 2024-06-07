@@ -15,48 +15,52 @@
 
     a:hover {
       background-color: rgb(64, 224, 176);
-      color: rgb(255,255,255);
+      color: rgb(255, 255, 255);
     }
-
-    
-
   </style>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 
 </head>
 
 <body>
-   <a href="timer.html">Stelle dir einen Timer, egal auf welchem Gerät</a>
+  <a href="timer.html">Stelle dir einen Timer, egal auf welchem Gerät</a>
 
-   <br>
-   <br>
+  <br>
+  <br>
 
-   <a href="Furtz.html">Spiele einen Sound ab</a>
+  <a href="Furtz.html">Spiele einen Sound ab</a>
 
-   <br>
-   <br>
+  <br>
+  <br>
 
-   <a href="Notiz.html"><aa>Erstelle eine Notiz</a>
+  <a href="Notiz.html">
+    <aa>Erstelle eine Notiz
+  </a>
 
-    <br>
-    <br>
+  <br>
+  <br>
 
   <a href="admin.html">Admin login</a>
-  
+
   <br>
   <br>
 
   <a href="shoplogin.html">Shop login (beta)</a>
 
-<br>
-<br>
+  <br>
+  <br>
 
   <a href="code.html">Code für eigene Internetseite</a>
 
-<br>
-<br>
+  <br>
+  <br>
 
   <a href="wuerfel.html">Gucke dir einen Würfel an</a>
+
+  <br>
+  <br>
+
+  <a href="getfreemoneyatgames.html">Kriege kostenlose ingame-währung !!!</a>
 
   <!-- Webcounter BEGIN CODE--><a href="https://www.homepage-counter.com/" title="Homepage Counter">
     <script language="Javascript" src="https://www.homepage-counter.com/counter.php?page=ab12c80"></script>
@@ -70,25 +74,25 @@
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen></iframe>
 
-    <button style="display:none;">debug</button>
-    <p id="debug-links-text" style="display: none;"></p>
-    <script>
-        let areLinksHere = document.querySelectorAll('a').length>0;
-        let rechtsclickZaehler = 0;
-        document.body.addEventListener('contextmenu', () => {
-            rechtsclickZaehler = rechtsclickZaehler + 1;
-            if(rechtsclickZaehler > 4) {
-              document.querySelector("button").style.display="block"
-            }
-        } )
+  <button style="display:none;">debug</button>
+  <p id="debug-links-text" style="display: none;"></p>
+  <script>
+    let areLinksHere = document.querySelectorAll('a').length > 0;
+    let rechtsclickZaehler = 0;
+    document.body.addEventListener('contextmenu', () => {
+      rechtsclickZaehler = rechtsclickZaehler + 1;
+      if (rechtsclickZaehler > 4) {
+        document.querySelector("button").style.display = "block"
+      }
+    })
 
-        document.querySelector("button").addEventListener("click",() => {
-          document.querySelector("#debug-links-text").innerHTML=`are links on the page: ${areLinksHere}`
-          document.querySelector("#debug-links-text").style.display="block"
+    document.querySelector("button").addEventListener("click", () => {
+      document.querySelector("#debug-links-text").innerHTML = `are links on the page: ${areLinksHere}`
+      document.querySelector("#debug-links-text").style.display = "block"
 
-        })
+    })
 
-    </script>
+  </script>
 </body>
 
 </html>
