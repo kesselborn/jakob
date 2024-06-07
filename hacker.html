@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker-Konsole</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #console {
+            white-space: pre-wrap;
+            padding: 10px;
+        }
+
+        .blink {
+            animation: blink 1s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="console"></div>
+    <div id="passwordContainer"></div>
+    <script>
+        const commands = [
+            "Initializing...",
+            "Connecting to server...",
+            "Access granted",
+            "Retrieving data...",
+            "Decryption complete",
+            "Uploading payload...",
+            "Payload executed successfully",
+            "Disconnecting..."
+        ];
+        const consoleElement = document.getElementById('console');
+        const passwordContainer = document.getElementById('passwordContainer');
+
+        function typeCommand(index) {
+            if (index < commands.length) {
+                const command = commands[index];
+                let charIndex = 0;
+
+                const typeInterval = setInterval(() => {
+                    if (charIndex < command.length) {
+                        consoleElement.innerHTML += command.charAt(charIndex);
+                        charIndex++;
+                    } else {
+                        clearInterval(typeInterval);
+                        consoleElement.innerHTML += "\n";
+                        setTimeout(() => typeCommand(index + 1), 300);
+                    }
+                }, 50);
+            } else {
+                consoleElement.innerHTML += "\n\n";
+                simulateActivity();
+                setTimeout(showPasswordPrompt, 10000); // Zeigt das Passwort nach 10 Sekunden an
+            }
+        }
+
+        function simulateActivity() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            const length = 60;
+            let output = "";
+            const startTime = new Date().getTime();
+
+            const activityInterval = setInterval(() => {
+                for (let i = 0; i < length; i++) {
+                    output += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                consoleElement.innerHTML += output + "\n";
+                output = "";
+                window.scrollTo(0, document.body.scrollHeight);
+
+                const elapsedTime = (new Date().getTime() - startTime) / 1000;
+                if (elapsedTime >= 10) {
+                    clearInterval(activityInterval);
+                }
+            }, 50);
+        }
+
+        function showPasswordPrompt() {
+            const password = generatePassword();
+            passwordContainer.innerHTML = "password: " + password + "\n";
+        }
+
+        function generatePassword() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            const length = 12;
+            let password = "";
+            for (let i = 0; i < length; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        typeCommand(0);
+    </script>
+</body>
+
+</html>
