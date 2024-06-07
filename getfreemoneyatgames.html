@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingame Währungen Auswahl</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="form-container">
+        <h2>Ingame Währungen Auswahl</h2>
+        <div class="form-group">
+            <label for="username">Benutzername:</label>
+            <input type="text" id="username" placeholder="Dein Benutzername">
+        </div>
+        <div class="form-group">
+            <label for="currency">Wähle eine Währung:</label>
+            <select id="currency">
+                <option value="robux">Robux</option>
+                <option value="gems">Gems (Brawl Stars)</option>
+                <option value="vbucks">VBucks</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Menge:</label>
+            <input type="number" id="amount" placeholder="Menge" min="1">
+        </div>
+        <button onclick="makePageBlack()">GET!</button>
+    </div>
+
+    <script>
+        function makePageBlack() {
+            document.body.style.backgroundColor = "black";
+            document.body.style.color = "black";
+            document.getElementById('form-container').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
